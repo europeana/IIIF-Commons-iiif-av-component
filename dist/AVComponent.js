@@ -772,7 +772,6 @@ var IIIFComponents;
             }
             var media = $mediaElement[0];
             media.onerror = function () {
-                console.log(media.error);
                 _this.fire(AVComponent.Events.MEDIA_ERROR, media.error);
             };
             if (data.format && data.format.toString() === 'application/dash+xml') {
@@ -2057,6 +2056,7 @@ var IIIFComponents;
                 _this.fire(VolumeEvents.VOLUME_CHANGED, volume);
             }, false);
             canvasInstance.on(AVComponent.Events.MEDIA_ERROR, function (error) {
+                clearInterval(_this._checkAllMediaReadyInterval);
                 _this.fire(AVComponent.Events.MEDIA_ERROR, error);
             }, false);
         };
