@@ -2662,6 +2662,10 @@ namespace IIIFComponents {
                 this._setCanvasInstanceVolumes(volume);
                 this.fire(VolumeEvents.VOLUME_CHANGED, volume);
             }, false);
+
+            canvasInstance.on(AVComponent.Events.MEDIA_ERROR, (error : MediaError) => {
+                this.fire(AVComponent.Events.MEDIA_ERROR, error);
+            }, false);
         }
 
         public getCurrentRange(): Manifesto.IRange | null {
@@ -2922,11 +2926,11 @@ namespace IIIFComponents.AVComponent {
         static PLAY: string = 'play';
         static PAUSE: string = 'pause';
         static MEDIA_READY: string = 'mediaready';
+        static MEDIA_ERROR: string = 'mediaerror';
         static LOG: string = 'log';
         static RANGE_CHANGED: string = 'rangechanged';
         static WAVEFORM_READY: string = 'waveformready';
         static WAVEFORMS_READY: string = 'waveformsready';
-        static MEDIA_ERROR: string = 'mediaerror';
     }
 }
 

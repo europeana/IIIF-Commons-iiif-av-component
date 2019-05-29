@@ -2056,6 +2056,9 @@ var IIIFComponents;
                 _this._setCanvasInstanceVolumes(volume);
                 _this.fire(VolumeEvents.VOLUME_CHANGED, volume);
             }, false);
+            canvasInstance.on(AVComponent.Events.MEDIA_ERROR, function (error) {
+                _this.fire(AVComponent.Events.MEDIA_ERROR, error);
+            }, false);
         };
         AVComponent.prototype.getCurrentRange = function () {
             var rangeId = this._data.helper.getCurrentRange().id;
@@ -2267,11 +2270,11 @@ var IIIFComponents;
             Events.PLAY = 'play';
             Events.PAUSE = 'pause';
             Events.MEDIA_READY = 'mediaready';
+            Events.MEDIA_ERROR = 'mediaerror';
             Events.LOG = 'log';
             Events.RANGE_CHANGED = 'rangechanged';
             Events.WAVEFORM_READY = 'waveformready';
             Events.WAVEFORMS_READY = 'waveformsready';
-            Events.MEDIA_ERROR = 'mediaerror';
             return Events;
         }());
         AVComponent.Events = Events;
