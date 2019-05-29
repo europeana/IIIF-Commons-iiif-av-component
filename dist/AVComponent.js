@@ -771,13 +771,16 @@ var IIIFComponents;
                     return;
             }
             var media = $mediaElement[0];
-            $mediaElement.on("error", function (e) {
+            media.onerror = function (e) {
+                console.log(e);
+            };
+            /*$mediaElement.on("error", (e) => {
                 console.log("error in video playout");
                 console.log(e);
-            });
-            $mediaElement.on("error", function () {
+            });*/
+            /*$mediaElement.on("error", () => {
                 console.log("error in video playout 2");
-            });
+            });*/
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
                 $mediaElement.attr('data-dashjs-player', '');
