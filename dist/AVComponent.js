@@ -771,9 +771,13 @@ var IIIFComponents;
                     return;
             }
             var media = $mediaElement[0];
-            media.onerror = function (e) {
+            $mediaElement[0].onerror = function (e) {
+                console.log("Error in playing out video");
                 console.log(e);
             };
+            /*media.onerror = (e) => {
+                console.log(e);
+            }*/
             /*$mediaElement.on("error", (e) => {
                 console.log("error in video playout");
                 console.log(e);

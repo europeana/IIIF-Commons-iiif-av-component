@@ -1028,9 +1028,14 @@ namespace IIIFComponents {
 
             const media: HTMLMediaElement = $mediaElement[0] as HTMLMediaElement;
 
-            media.onerror = (e) => {
+            $mediaElement[0].onerror = (e) => {
+                console.log("Error in playing out video");
                 console.log(e);
             }
+
+            /*media.onerror = (e) => {
+                console.log(e);
+            }*/
 
             /*$mediaElement.on("error", (e) => {
                 console.log("error in video playout");
