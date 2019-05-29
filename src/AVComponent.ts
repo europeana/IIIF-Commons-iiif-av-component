@@ -1029,7 +1029,6 @@ namespace IIIFComponents {
             const media: HTMLMediaElement = $mediaElement[0] as HTMLMediaElement;
 
             media.onerror = () => {
-                console.log(media.error);
                 this.fire(AVComponent.Events.MEDIA_ERROR, media.error);
             }
 
@@ -2664,6 +2663,7 @@ namespace IIIFComponents {
             }, false);
 
             canvasInstance.on(AVComponent.Events.MEDIA_ERROR, (error : MediaError) => {
+                clearInterval(this._checkAllMediaReadyInterval);
                 this.fire(AVComponent.Events.MEDIA_ERROR, error);
             }, false);
         }
