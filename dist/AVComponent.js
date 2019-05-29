@@ -771,17 +771,23 @@ var IIIFComponents;
                     return;
             }
             var media = $mediaElement[0];
-            $mediaElement[0].onerror = function (e) {
+            /*$mediaElement[0].onerror = (e) => {
                 console.log("Error in playing out video");
                 console.log(e);
-            };
-            /*media.onerror = (e) => {
-                console.log(e);
+                console.log(e.target.error.code);
+                console.log(e.code);
             }*/
-            /*$mediaElement.on("error", (e) => {
+            /*media.onerror = (e) => {
+                 console.log(e);
+                 console.log(e.target.error.code);
+                 console.log(e.code);
+             }*/
+            $mediaElement.on("error", function (e) {
                 console.log("error in video playout");
                 console.log(e);
-            });*/
+                console.log(e.target); //.error.code);
+                //console.log(e.code);
+            });
             /*$mediaElement.on("error", () => {
                 console.log("error in video playout 2");
             });*/
