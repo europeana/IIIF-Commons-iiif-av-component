@@ -1028,29 +1028,9 @@ namespace IIIFComponents {
 
             const media: HTMLMediaElement = $mediaElement[0] as HTMLMediaElement;
 
-            /*$mediaElement[0].onerror = (e) => {
-                console.log("Error in playing out video");
-                console.log(e);
-                console.log(e.target.error.code);
-                console.log(e.code);
-            }*/
-
-           /*media.onerror = (e) => {
-                console.log(e);
-                console.log(e.target.error.code);
-                console.log(e.code);
-            }*/
-
-            $mediaElement.on("error", (e) => {
-                console.log("error in video playout");
-                console.log(e);
-                console.log(e.target);//.error.code);
-                //console.log(e.code);
-            });
-
-            /*$mediaElement.on("error", () => {
-                console.log("error in video playout 2");
-            });*/
+            media.onerror = () => {
+                console.log(media.error);
+            }
 
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
