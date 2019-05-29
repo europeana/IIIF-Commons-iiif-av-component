@@ -1030,6 +1030,8 @@ namespace IIIFComponents {
 
             media.onerror = () => {
                 console.log(media.error);
+
+                this.fire(AVComponent.Events.MEDIA_ERROR, media.error!.code);
             }
 
             if (data.format && data.format.toString() === 'application/dash+xml') {
@@ -2925,6 +2927,7 @@ namespace IIIFComponents.AVComponent {
         static RANGE_CHANGED: string = 'rangechanged';
         static WAVEFORM_READY: string = 'waveformready';
         static WAVEFORMS_READY: string = 'waveformsready';
+        static MEDIA_ERROR: string = 'mediaerror';
     }
 }
 

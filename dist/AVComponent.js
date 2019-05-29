@@ -773,6 +773,7 @@ var IIIFComponents;
             var media = $mediaElement[0];
             media.onerror = function () {
                 console.log(media.error);
+                _this.fire(AVComponent.Events.MEDIA_ERROR, media.error.code);
             };
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
@@ -2270,6 +2271,7 @@ var IIIFComponents;
             Events.RANGE_CHANGED = 'rangechanged';
             Events.WAVEFORM_READY = 'waveformready';
             Events.WAVEFORMS_READY = 'waveformsready';
+            Events.MEDIA_ERROR = 'mediaerror';
             return Events;
         }());
         AVComponent.Events = Events;
