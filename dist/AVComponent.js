@@ -773,6 +773,7 @@ var IIIFComponents;
             var media = $mediaElement[0];
             media.onerror = function () {
                 console.log(media.error);
+                console.log("firing mediaerror event" + media.error.code);
                 _this.fire(AVComponent.Events.MEDIA_ERROR, media.error.code);
             };
             if (data.format && data.format.toString() === 'application/dash+xml') {
