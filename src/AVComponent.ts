@@ -1030,8 +1030,7 @@ namespace IIIFComponents {
 
             media.onerror = () => {
                 console.log(media.error);
-                console.log("firing mediaerror event"+media.error!.code);
-                this.fire(AVComponent.Events.MEDIA_ERROR, media.error!.code);
+                this.fire(AVComponent.Events.MEDIA_ERROR, media.error);
             }
 
             if (data.format && data.format.toString() === 'application/dash+xml') {
