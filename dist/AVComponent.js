@@ -857,7 +857,7 @@ var IIIFComponents;
                 this._$canvasContainer.append($mediaElement);
             }
             $mediaElement.on('loadstart', function () {
-                //console.log('loadstart');
+                console.log('loadstart');
                 //data.checkForStall();
             });
             $mediaElement.on('waiting', function () {
@@ -883,7 +883,7 @@ var IIIFComponents;
                 }
             });
             $mediaElement.on('progress', function () {
-                console.log("media progress event");
+                console.log("media progress event 1");
                 var duration = media.duration;
                 if (duration > 0) {
                     for (var i = 0; i < media.buffered.length; i++) {
@@ -894,6 +894,18 @@ var IIIFComponents;
                     }
                 }
             });
+            media.onprogress = function () {
+                console.log("media progress event 2");
+                var duration = media.duration;
+                if (duration > 0) {
+                    for (var i = 0; i < media.buffered.length; i++) {
+                        if (media.buffered.start(media.buffered.length - 1 - i) < media.currentTime) {
+                            $(".loading-progress").style.width = (media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%";
+                            break;
+                        }
+                    }
+                }
+            };
             $mediaElement.attr('preload', 'auto');
             $mediaElement.get(0).load();
             this._renderSyncIndicator(data);

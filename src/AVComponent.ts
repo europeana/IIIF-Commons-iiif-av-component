@@ -1128,7 +1128,7 @@ namespace IIIFComponents {
             }
 
             $mediaElement.on('loadstart', () => {
-                //console.log('loadstart');
+                console.log('loadstart');
                 //data.checkForStall();
             });
 
@@ -1161,7 +1161,7 @@ namespace IIIFComponents {
             });
 
             $mediaElement.on('progress', () => {
-                console.log("media progress event");
+                console.log("media progress event 1");
                 var duration =  media.duration;
                 if (duration > 0) {
                     for (var i = 0; i < media.buffered.length; i++) {
@@ -1172,6 +1172,19 @@ namespace IIIFComponents {
                     }
                 }
             });
+
+            media.onprogress = () => {
+                console.log("media progress event 2");
+                var duration =  media.duration;
+                if (duration > 0) {
+                    for (var i = 0; i < media.buffered.length; i++) {
+                        if (media.buffered.start(media.buffered.length - 1 - i) < media.currentTime) {
+                            $(".loading-progress").style.width = (media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%";
+                            break;
+                        }
+                    }
+                }
+            }
 
             $mediaElement.attr('preload', 'auto');
 
