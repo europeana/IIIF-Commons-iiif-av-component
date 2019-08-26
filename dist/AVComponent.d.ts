@@ -107,6 +107,7 @@ declare namespace IIIFComponents {
         private _waveformCtx;
         ranges: Manifesto.IRange[];
         waveforms: string[];
+        private _$canvasLoadingProgress;
         $playerElement: JQuery;
         isOnlyCanvasInstance: boolean;
         logMessage: (message: string) => void;
