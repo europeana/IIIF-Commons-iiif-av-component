@@ -219,6 +219,7 @@ namespace IIIFComponents {
         //private _waveformNeedsRedraw: boolean = true;
         public ranges: Manifesto.IRange[] = [];
         public waveforms: string[] = [];
+        private _$canvasLoadingProgress: JQuery;
 
         public $playerElement: JQuery;
         public isOnlyCanvasInstance: boolean = false;
@@ -278,6 +279,7 @@ namespace IIIFComponents {
             this._$timeDisplay = $('<div class="time-display"><span class="canvas-time"></span> / <span class="canvas-duration"></span></div>');
             this._$canvasTime = this._$timeDisplay.find('.canvas-time');
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
+            this._$canvasLoadingProgress = $('<div class="loading-progress"></div>');
 
             if (this.isVirtual()) {
                 this.$playerElement.addClass('virtual');
@@ -294,7 +296,7 @@ namespace IIIFComponents {
             }, false);
 
             this._$controlsContainer.append(this._$prevButton, this._$playButton, this._$nextButton, this._$timeDisplay, $volume);
-            this._$canvasTimelineContainer.append(this._$canvasHoverPreview, this._$canvasHoverHighlight, this._$durationHighlight);
+            this._$canvasTimelineContainer.append(this._$canvasHoverPreview, this._$canvasHoverHighlight, this._$durationHighlight, this._$canvasLoadingProgress);
             this._$rangeTimelineContainer.append(this._$rangeHoverPreview, this._$rangeHoverHighlight);
             this._$optionsContainer.append(this._$canvasTimelineContainer, this._$rangeTimelineContainer, this._$timelineItemContainer, this._$controlsContainer);
             this.$playerElement.append(this._$canvasContainer, this._$optionsContainer);
@@ -1156,6 +1158,19 @@ namespace IIIFComponents {
 
                     this.fire(AVComponent.Events.MEDIA_READY);
                 }
+            });
+
+            $mediaElement.on('progress', () => {
+                console.log("media progress event");
+                var duration =  media.duration;
+                if (duration > 0) {
+                    for (var i = 0; i < media.buffered.length; i++) {
+            if (media.buffered.start(media.buffered.length - 1 - i) < media.currentTime) {
+                $(".loading-progress").style.width = (media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%";
+                break;
+            }
+        }
+    }
             });
 
             $mediaElement.attr('preload', 'auto');
