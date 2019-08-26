@@ -1176,18 +1176,21 @@ namespace IIIFComponents {
                 }
             });
 
-            /*media.onprogress = () => {
+            media.onprogress = () => {
                 console.log("media progress event 2");
                 var duration =  media.duration;
+                console.log("media duration "+duration);
+                console.log("media buffered length "+media.buffered.length);
+                console.log("media current time "+media.currentTime);
                 if (duration > 0) {
                     for (var i = 0; i < media.buffered.length; i++) {
                         if (media.buffered.start(media.buffered.length - 1 - i) < media.currentTime) {
-                            $(".loading-progress").style.width = (media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%";
+                            $(".loading-progress").width((media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%");
                             break;
                         }
                     }
                 }
-            }*/
+            }
             console.log("$mediaElement");
             console.log($mediaElement);
             console.log("media");
