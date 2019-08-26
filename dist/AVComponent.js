@@ -883,39 +883,19 @@ var IIIFComponents;
                 }
             });
             $mediaElement.on('progress', function () {
-                console.log("media progress event 1");
+                console.log("media progress event");
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
                 var duration = media.duration;
                 console.log("media duration " + duration);
                 console.log("media buffered length " + media.buffered.length);
                 console.log("media current time " + media.currentTime);
+                console.log("media buffer end " + bufferedEnd);
                 if (duration > 0) {
-                    for (var i = 0; i < media.buffered.length; i++) {
-                        if (media.buffered.start(media.buffered.length - 1 - i) < media.currentTime) {
-                            $(".loading-progress").width((media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%");
-                            break;
-                        }
-                    }
+                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
                 }
             });
-            media.onprogress = function () {
-                console.log("media progress event 2");
-                var duration = media.duration;
-                console.log("media duration " + duration);
-                console.log("media buffered length " + media.buffered.length);
-                console.log("media current time " + media.currentTime);
-                if (duration > 0) {
-                    for (var i = 0; i < media.buffered.length; i++) {
-                        if (media.buffered.start(media.buffered.length - 1 - i) < media.currentTime) {
-                            $(".loading-progress").width((media.buffered.end(media.buffered.length - 1 - i) / duration) * 100 + "%");
-                            break;
-                        }
-                    }
-                }
-            };
             console.log("$mediaElement");
             console.log($mediaElement);
-            console.log("media");
-            console.log(media);
             $mediaElement.attr('preload', 'auto');
             $mediaElement.get(0).load();
             this._renderSyncIndicator(data);
