@@ -1185,6 +1185,10 @@ namespace IIIFComponents {
                     }
                 }
             }
+            console.log("$mediaElement");
+            console.log($mediaElement);
+            console.log("media");
+            console.log(media);
 
             $mediaElement.attr('preload', 'auto');
 

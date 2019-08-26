@@ -906,6 +906,10 @@ var IIIFComponents;
                     }
                 }
             };
+            console.log("$mediaElement");
+            console.log($mediaElement);
+            console.log("media");
+            console.log(media);
             $mediaElement.attr('preload', 'auto');
             $mediaElement.get(0).load();
             this._renderSyncIndicator(data);
