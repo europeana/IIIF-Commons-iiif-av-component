@@ -1007,7 +1007,7 @@ namespace IIIFComponents {
 
         private _renderMediaElement(data: any): void {
 
-            let $mediaElement;
+            let $mediaElement : JQuery;
             let type: string = data.type.toString().toLowerCase();
 
             switch (type) {
@@ -1033,36 +1033,6 @@ namespace IIIFComponents {
             media.onerror = () => {
                 this.fire(AVComponent.Events.MEDIA_ERROR, media.error);
             }
-
-            $mediaElement.on('progress', () => {
-                console.log("progress event");
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
-                }
-            });
-
-            $mediaElement.on("load", () => {
-                console.log("load event");
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
-                }
-            });
-
-            $mediaElement.on("loadend", () => {
-                console.log("loadend event");
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
-                }
-            });
 
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
@@ -1122,7 +1092,6 @@ namespace IIIFComponents {
 
             data.element = $mediaElement;
 
-
             data.timeout = null;
 
             const that = this;
@@ -1174,6 +1143,7 @@ namespace IIIFComponents {
 
             $mediaElement.on('loadedmetadata', () => {
                 this._readyMediaCount++;
+                $mediaElement.trigger("progress");
 
                 if (this._readyMediaCount === this._contentAnnotations.length) {
 
@@ -1187,6 +1157,16 @@ namespace IIIFComponents {
                     this._updateDurationDisplay();
 
                     this.fire(AVComponent.Events.MEDIA_READY);
+                }
+            });
+
+            $mediaElement.on('progress', () => {
+                console.log("progress event");
+                var duration =  media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
                 }
             });
 
