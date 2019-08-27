@@ -883,19 +883,29 @@ var IIIFComponents;
                 }
             });
             $mediaElement.on('progress', function () {
-                console.log("media progress event");
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                console.log("progress event");
                 var duration = media.duration;
-                console.log("media duration " + duration);
-                console.log("media buffered length " + media.buffered.length);
-                console.log("media current time " + media.currentTime);
-                console.log("media buffer end " + bufferedEnd);
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
                 if (duration > 0) {
                     $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
                 }
             });
-            console.log("$mediaElement");
-            console.log($mediaElement);
+            $mediaElement.on("load", function () {
+                console.log("load event");
+                var duration = media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                }
+            });
+            $mediaElement.on("loadend", function () {
+                console.log("loadend event");
+                var duration = media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                }
+            });
             $mediaElement.attr('preload', 'auto');
             $mediaElement.get(0).load();
             this._renderSyncIndicator(data);
