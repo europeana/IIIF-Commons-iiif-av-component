@@ -179,6 +179,7 @@ var IIIFComponents;
             this._$canvasTime = this._$timeDisplay.find('.canvas-time');
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
             this._$canvasLoadingProgress = $('<div class="loading-progress"></div>');
+            this._$fullscreenButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.fullscreen + "\">\n                                    <i class=\"av-icon av-icon-fullscreen\" aria-hidden=\"true\"></i>" + this._data.content.fullscreen + "\n                                </button>");
             if (this.isVirtual()) {
                 this.$playerElement.addClass('virtual');
             }
@@ -190,7 +191,7 @@ var IIIFComponents;
             this._volume.on(VolumeEvents.VOLUME_CHANGED, function (value) {
                 _this.fire(VolumeEvents.VOLUME_CHANGED, value);
             }, false);
-            this._$controlsContainer.append(this._$prevButton, this._$playButton, this._$nextButton, this._$timeDisplay, $volume);
+            this._$controlsContainer.append(this._$prevButton, this._$playButton, this._$nextButton, this._$timeDisplay, $volume, this._$fullscreenButton);
             this._$canvasTimelineContainer.append(this._$canvasHoverPreview, this._$canvasHoverHighlight, this._$durationHighlight, this._$canvasLoadingProgress);
             this._$rangeTimelineContainer.append(this._$rangeHoverPreview, this._$rangeHoverHighlight);
             this._$optionsContainer.append(this._$canvasTimelineContainer, this._$rangeTimelineContainer, this._$timelineItemContainer, this._$controlsContainer);
@@ -311,6 +312,29 @@ var IIIFComponents;
                     _this._updateHoverPreview(e, _this._$rangeTimelineContainer, duration ? duration.getLength() : 0);
                 }
             });
+            this._$fullscreenButton[0].addEventListener('click', function (e) {
+                e.preventDefault();
+                var fsDoc = document;
+                if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
+                    var fsDocElem = document.documentElement;
+                    if (fsDocElem.requestFullscreen)
+                        fsDocElem.requestFullscreen();
+                    else if (fsDocElem.msRequestFullscreen)
+                        fsDocElem.msRequestFullscreen();
+                    else if (fsDocElem.mozRequestFullScreen)
+                        fsDocElem.mozRequestFullScreen();
+                    else if (fsDocElem.webkitRequestFullscreen)
+                        fsDocElem.webkitRequestFullscreen();
+                }
+                else if (fsDoc.exitFullscreen)
+                    fsDoc.exitFullscreen();
+                else if (fsDoc.msExitFullscreen)
+                    fsDoc.msExitFullscreen();
+                else if (fsDoc.mozCancelFullScreen)
+                    fsDoc.mozCancelFullScreen();
+                else if (fsDoc.webkitExitFullscreen)
+                    fsDoc.webkitExitFullscreen();
+            }, false);
             // create annotations
             this._contentAnnotations = [];
             var items = this._data.canvas.getContent(); // (<any>this._data.canvas).__jsonld.content[0].items;
@@ -857,7 +881,7 @@ var IIIFComponents;
                 this._$canvasContainer.append($mediaElement);
             }
             $mediaElement.on('loadstart', function () {
-                console.log('loadstart');
+                //console.log('loadstart');
                 //data.checkForStall();
             });
             $mediaElement.on('waiting', function () {
@@ -884,7 +908,6 @@ var IIIFComponents;
                 }
             });
             $mediaElement.on('progress', function () {
-                console.log("progress event");
                 var duration = media.duration;
                 var bufferedEnd = media.buffered.end(media.buffered.length - 1);
                 if (duration > 0) {
@@ -1770,7 +1793,8 @@ var IIIFComponents;
                     pause: "Pause",
                     play: "Play",
                     previous: "Previous",
-                    unmute: "Unmute"
+                    unmute: "Unmute",
+                    fullscreen: "Fullscreen"
                 }
             };
         };

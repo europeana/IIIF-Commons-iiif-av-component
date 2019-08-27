@@ -21,6 +21,7 @@ declare namespace IIIFComponents {
         play: string;
         previous: string;
         unmute: string;
+        fullscreen: string;
     }
     interface IAVComponentData {
         [key: string]: any;
@@ -108,6 +109,7 @@ declare namespace IIIFComponents {
         ranges: Manifesto.IRange[];
         waveforms: string[];
         private _$canvasLoadingProgress;
+        private _$fullscreenButton;
         $playerElement: JQuery;
         isOnlyCanvasInstance: boolean;
         logMessage: (message: string) => void;
@@ -273,4 +275,17 @@ declare namespace IIIFComponents.AVComponent {
         static WAVEFORM_READY: string;
         static WAVEFORMS_READY: string;
     }
+}
+interface FsDocument extends HTMLDocument {
+    mozFullScreenElement?: Element;
+    msFullscreenElement?: Element;
+    webkitFullscreenElement?: Element;
+    msExitFullscreen?: () => void;
+    mozCancelFullScreen?: () => void;
+    webkitExitFullscreen?: () => void;
+}
+interface FsDocumentElement extends HTMLElement {
+    msRequestFullscreen?: () => void;
+    mozRequestFullScreen?: () => void;
+    webkitRequestFullscreen?: () => void;
 }

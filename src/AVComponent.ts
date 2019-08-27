@@ -18,6 +18,7 @@ namespace IIIFComponents {
         play: string;
         previous: string;
         unmute: string;
+        fullscreen: string;
     }
 
     export interface IAVComponentData {
@@ -220,6 +221,7 @@ namespace IIIFComponents {
         public ranges: Manifesto.IRange[] = [];
         public waveforms: string[] = [];
         private _$canvasLoadingProgress: JQuery;
+        private _$fullscreenButton: JQuery;
 
         public $playerElement: JQuery;
         public isOnlyCanvasInstance: boolean = false;
@@ -280,6 +282,10 @@ namespace IIIFComponents {
             this._$canvasTime = this._$timeDisplay.find('.canvas-time');
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
             this._$canvasLoadingProgress = $('<div class="loading-progress"></div>');
+            this._$fullscreenButton = $(`
+                                <button class="btn" title="${this._data.content.fullscreen}">
+                                    <i class="av-icon av-icon-fullscreen" aria-hidden="true"></i>${this._data.content.fullscreen}
+                                </button>`);
 
             if (this.isVirtual()) {
                 this.$playerElement.addClass('virtual');
@@ -295,7 +301,7 @@ namespace IIIFComponents {
                 this.fire(VolumeEvents.VOLUME_CHANGED, value);
             }, false);
 
-            this._$controlsContainer.append(this._$prevButton, this._$playButton, this._$nextButton, this._$timeDisplay, $volume);
+            this._$controlsContainer.append(this._$prevButton, this._$playButton, this._$nextButton, this._$timeDisplay, $volume, this._$fullscreenButton);
             this._$canvasTimelineContainer.append(this._$canvasHoverPreview, this._$canvasHoverHighlight, this._$durationHighlight, this._$canvasLoadingProgress);
             this._$rangeTimelineContainer.append(this._$rangeHoverPreview, this._$rangeHoverHighlight);
             this._$optionsContainer.append(this._$canvasTimelineContainer, this._$rangeTimelineContainer, this._$timelineItemContainer, this._$controlsContainer);
@@ -445,6 +451,33 @@ namespace IIIFComponents {
                     this._updateHoverPreview(e, this._$rangeTimelineContainer, duration ? duration.getLength() : 0);
                 }
             });
+
+            this._$fullscreenButton[0].addEventListener('click', (e) => {
+
+                e.preventDefault();
+
+                const fsDoc = <FsDocument> document;
+                
+                if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
+                    const fsDocElem = <FsDocumentElement> document.documentElement;
+
+                    if (fsDocElem.requestFullscreen)
+                        fsDocElem.requestFullscreen();
+                    else if (fsDocElem.msRequestFullscreen)
+                        fsDocElem.msRequestFullscreen();
+                    else if (fsDocElem.mozRequestFullScreen)
+                        fsDocElem.mozRequestFullScreen();
+                    else if (fsDocElem.webkitRequestFullscreen)
+                        fsDocElem.webkitRequestFullscreen();
+                } else if (fsDoc.exitFullscreen) 
+                    fsDoc.exitFullscreen();
+                  else if (fsDoc.msExitFullscreen)
+                    fsDoc.msExitFullscreen();
+                  else if (fsDoc.mozCancelFullScreen)
+                    fsDoc.mozCancelFullScreen();
+                  else if (fsDoc.webkitExitFullscreen)
+                    fsDoc.webkitExitFullscreen();
+            }, false);
 
             // create annotations
 
@@ -1127,7 +1160,7 @@ namespace IIIFComponents {
             }
 
             $mediaElement.on('loadstart', () => {
-                console.log('loadstart');
+                //console.log('loadstart');
                 //data.checkForStall();
             });
 
@@ -1161,7 +1194,6 @@ namespace IIIFComponents {
             });
 
             $mediaElement.on('progress', () => {
-                console.log("progress event");
                 var duration =  media.duration;
                 var bufferedEnd = media.buffered.end(media.buffered.length - 1);
 
@@ -2284,7 +2316,8 @@ namespace IIIFComponents {
                     pause: "Pause",
                     play: "Play",
                     previous: "Previous",
-                    unmute: "Unmute"
+                    unmute: "Unmute",
+                    fullscreen: "Fullscreen"
                 }
             }
         }
@@ -2944,6 +2977,22 @@ namespace IIIFComponents.AVComponent {
         static WAVEFORM_READY: string = 'waveformready';
         static WAVEFORMS_READY: string = 'waveformsready';
     }
+}
+
+interface FsDocument extends HTMLDocument {
+    mozFullScreenElement?: Element;
+    msFullscreenElement?: Element;
+    webkitFullscreenElement?: Element;
+    msExitFullscreen?: () => void;
+    mozCancelFullScreen?: () => void;
+    webkitExitFullscreen?: () => void;
+  }
+
+
+interface FsDocumentElement extends HTMLElement {
+    msRequestFullscreen?: () => void;
+    mozRequestFullScreen?: () => void;
+    webkitRequestFullscreen?: () => void;
 }
 
 (function(g:any) {
