@@ -775,6 +775,30 @@ var IIIFComponents;
             media.onerror = function () {
                 _this.fire(AVComponent.Events.MEDIA_ERROR, media.error);
             };
+            $mediaElement.on('progress', function () {
+                console.log("progress event");
+                var duration = media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                }
+            });
+            $mediaElement.on("load", function () {
+                console.log("load event");
+                var duration = media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                }
+            });
+            $mediaElement.on("loadend", function () {
+                console.log("loadend event");
+                var duration = media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                }
+            });
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
                 $mediaElement.attr('data-dashjs-player', '');
@@ -880,30 +904,6 @@ var IIIFComponents;
                     }
                     _this._updateDurationDisplay();
                     _this.fire(AVComponent.Events.MEDIA_READY);
-                }
-            });
-            $mediaElement.on('progress', function () {
-                console.log("progress event");
-                var duration = media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
-                }
-            });
-            $mediaElement.on("load", function () {
-                console.log("load event");
-                var duration = media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
-                }
-            });
-            $mediaElement.on("loadend", function () {
-                console.log("loadend event");
-                var duration = media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
                 }
             });
             $mediaElement.attr('preload', 'auto');

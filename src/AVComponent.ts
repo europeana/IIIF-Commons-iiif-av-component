@@ -1034,6 +1034,36 @@ namespace IIIFComponents {
                 this.fire(AVComponent.Events.MEDIA_ERROR, media.error);
             }
 
+            $mediaElement.on('progress', () => {
+                console.log("progress event");
+                var duration =  media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
+                }
+            });
+
+            $mediaElement.on("load", () => {
+                console.log("load event");
+                var duration =  media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
+                }
+            });
+
+            $mediaElement.on("loadend", () => {
+                console.log("loadend event");
+                var duration =  media.duration;
+                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+
+                if (duration > 0) {
+                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
+                }
+            });
+
             if (data.format && data.format.toString() === 'application/dash+xml') {
                 // dash
                 $mediaElement.attr('data-dashjs-player', '');
@@ -1157,36 +1187,6 @@ namespace IIIFComponents {
                     this._updateDurationDisplay();
 
                     this.fire(AVComponent.Events.MEDIA_READY);
-                }
-            });
-
-            $mediaElement.on('progress', () => {
-                console.log("progress event");
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
-                }
-            });
-
-            $mediaElement.on("load", () => {
-                console.log("load event");
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
-                }
-            });
-
-            $mediaElement.on("loadend", () => {
-                console.log("loadend event");
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
                 }
             });
 
