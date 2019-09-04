@@ -459,7 +459,8 @@ namespace IIIFComponents {
                 const fsDoc = <FsDocument> document;
                 
                 if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
-                    const fsDocElem = <FsDocumentElement> document.documentElement;
+                    //const fsDocElem = <FsDocumentElement> document.documentElement;
+                    const fsDocElem = <FsDocumentElement> this.$playerElement.get(0);
 
                     if (fsDocElem.requestFullscreen)
                         fsDocElem.requestFullscreen();

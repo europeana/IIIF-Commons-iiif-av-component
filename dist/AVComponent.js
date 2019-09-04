@@ -316,7 +316,8 @@ var IIIFComponents;
                 e.preventDefault();
                 var fsDoc = document;
                 if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
-                    var fsDocElem = document.documentElement;
+                    //const fsDocElem = <FsDocumentElement> document.documentElement;
+                    var fsDocElem = _this.$playerElement.get(0);
                     if (fsDocElem.requestFullscreen)
                         fsDocElem.requestFullscreen();
                     else if (fsDocElem.msRequestFullscreen)
