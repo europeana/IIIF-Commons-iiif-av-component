@@ -274,6 +274,7 @@ declare namespace IIIFComponents.AVComponent {
         static RANGE_CHANGED: string;
         static WAVEFORM_READY: string;
         static WAVEFORMS_READY: string;
+        static FULLSCREEN: string;
     }
 }
 interface FsDocument extends HTMLDocument {

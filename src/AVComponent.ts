@@ -459,8 +459,9 @@ namespace IIIFComponents {
                 const fsDoc = <FsDocument> document;
                 
                 if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
-                    //const fsDocElem = <FsDocumentElement> document.documentElement;
                     const fsDocElem = <FsDocumentElement> this.$playerElement.get(0);
+
+                    this.fire(AVComponent.Events.FULLSCREEN);
 
                     if (fsDocElem.requestFullscreen)
                         fsDocElem.requestFullscreen();
@@ -2712,6 +2713,10 @@ namespace IIIFComponents {
                 clearInterval(this._checkAllMediaReadyInterval);
                 this.fire(AVComponent.Events.MEDIA_ERROR, error);
             }, false);
+
+            canvasInstance.on(AVComponent.Events.FULLSCREEN, () => {
+                this.fire(AVComponent.Events.FULLSCREEN);
+            }, false);
         }
 
         public getCurrentRange(): Manifesto.IRange | null {
@@ -2977,6 +2982,7 @@ namespace IIIFComponents.AVComponent {
         static RANGE_CHANGED: string = 'rangechanged';
         static WAVEFORM_READY: string = 'waveformready';
         static WAVEFORMS_READY: string = 'waveformsready';
+        static FULLSCREEN: string = 'fullscreen';
     }
 }
 

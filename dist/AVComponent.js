@@ -316,8 +316,8 @@ var IIIFComponents;
                 e.preventDefault();
                 var fsDoc = document;
                 if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
-                    //const fsDocElem = <FsDocumentElement> document.documentElement;
                     var fsDocElem = _this.$playerElement.get(0);
+                    _this.fire(AVComponent.Events.FULLSCREEN);
                     if (fsDocElem.requestFullscreen)
                         fsDocElem.requestFullscreen();
                     else if (fsDocElem.msRequestFullscreen)
@@ -2094,6 +2094,9 @@ var IIIFComponents;
                 clearInterval(_this._checkAllMediaReadyInterval);
                 _this.fire(AVComponent.Events.MEDIA_ERROR, error);
             }, false);
+            canvasInstance.on(AVComponent.Events.FULLSCREEN, function () {
+                _this.fire(AVComponent.Events.FULLSCREEN);
+            }, false);
         };
         AVComponent.prototype.getCurrentRange = function () {
             var rangeId = this._data.helper.getCurrentRange().id;
@@ -2310,6 +2313,7 @@ var IIIFComponents;
             Events.RANGE_CHANGED = 'rangechanged';
             Events.WAVEFORM_READY = 'waveformready';
             Events.WAVEFORMS_READY = 'waveformsready';
+            Events.FULLSCREEN = 'fullscreen';
             return Events;
         }());
         AVComponent.Events = Events;
