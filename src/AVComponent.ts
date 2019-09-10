@@ -453,7 +453,6 @@ namespace IIIFComponents {
             });
 
             this._$fullscreenButton[0].addEventListener('click', (e) => {
-
                 e.preventDefault();
 
                 const fsDoc = <FsDocument> document;
@@ -461,7 +460,7 @@ namespace IIIFComponents {
                 if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
                     const fsDocElem = <FsDocumentElement> this.$playerElement.get(0);
 
-                    this.fire(AVComponent.Events.FULLSCREEN);
+                    this.fire(AVComponent.Events.FULLSCREEN, "on");
 
                     if (fsDocElem.requestFullscreen)
                         fsDocElem.requestFullscreen();
@@ -471,14 +470,18 @@ namespace IIIFComponents {
                         fsDocElem.mozRequestFullScreen();
                     else if (fsDocElem.webkitRequestFullscreen)
                         fsDocElem.webkitRequestFullscreen();
-                } else if (fsDoc.exitFullscreen) 
-                    fsDoc.exitFullscreen();
-                  else if (fsDoc.msExitFullscreen)
-                    fsDoc.msExitFullscreen();
-                  else if (fsDoc.mozCancelFullScreen)
-                    fsDoc.mozCancelFullScreen();
-                  else if (fsDoc.webkitExitFullscreen)
-                    fsDoc.webkitExitFullscreen();
+                } else {
+                    this.fire(AVComponent.Events.FULLSCREEN, "off");
+
+                    if (fsDoc.exitFullscreen) 
+                        fsDoc.exitFullscreen();
+                    else if (fsDoc.msExitFullscreen)
+                        fsDoc.msExitFullscreen();
+                    else if (fsDoc.mozCancelFullScreen)
+                        fsDoc.mozCancelFullScreen();
+                    else if (fsDoc.webkitExitFullscreen)
+                        fsDoc.webkitExitFullscreen();
+                }
             }, false);
 
             // create annotations
@@ -2714,8 +2717,8 @@ namespace IIIFComponents {
                 this.fire(AVComponent.Events.MEDIA_ERROR, error);
             }, false);
 
-            canvasInstance.on(AVComponent.Events.FULLSCREEN, () => {
-                this.fire(AVComponent.Events.FULLSCREEN);
+            canvasInstance.on(AVComponent.Events.FULLSCREEN, (state: string) => {
+                this.fire(AVComponent.Events.FULLSCREEN, state);
             }, false);
         }
 

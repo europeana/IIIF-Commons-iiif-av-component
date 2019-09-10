@@ -317,7 +317,7 @@ var IIIFComponents;
                 var fsDoc = document;
                 if (!fsDoc.fullscreenElement && !fsDoc.mozFullScreenElement && !fsDoc.webkitFullscreenElement && !fsDoc.msFullscreenElement) {
                     var fsDocElem = _this.$playerElement.get(0);
-                    _this.fire(AVComponent.Events.FULLSCREEN);
+                    _this.fire(AVComponent.Events.FULLSCREEN, "on");
                     if (fsDocElem.requestFullscreen)
                         fsDocElem.requestFullscreen();
                     else if (fsDocElem.msRequestFullscreen)
@@ -327,14 +327,17 @@ var IIIFComponents;
                     else if (fsDocElem.webkitRequestFullscreen)
                         fsDocElem.webkitRequestFullscreen();
                 }
-                else if (fsDoc.exitFullscreen)
-                    fsDoc.exitFullscreen();
-                else if (fsDoc.msExitFullscreen)
-                    fsDoc.msExitFullscreen();
-                else if (fsDoc.mozCancelFullScreen)
-                    fsDoc.mozCancelFullScreen();
-                else if (fsDoc.webkitExitFullscreen)
-                    fsDoc.webkitExitFullscreen();
+                else {
+                    _this.fire(AVComponent.Events.FULLSCREEN, "off");
+                    if (fsDoc.exitFullscreen)
+                        fsDoc.exitFullscreen();
+                    else if (fsDoc.msExitFullscreen)
+                        fsDoc.msExitFullscreen();
+                    else if (fsDoc.mozCancelFullScreen)
+                        fsDoc.mozCancelFullScreen();
+                    else if (fsDoc.webkitExitFullscreen)
+                        fsDoc.webkitExitFullscreen();
+                }
             }, false);
             // create annotations
             this._contentAnnotations = [];
@@ -2094,8 +2097,8 @@ var IIIFComponents;
                 clearInterval(_this._checkAllMediaReadyInterval);
                 _this.fire(AVComponent.Events.MEDIA_ERROR, error);
             }, false);
-            canvasInstance.on(AVComponent.Events.FULLSCREEN, function () {
-                _this.fire(AVComponent.Events.FULLSCREEN);
+            canvasInstance.on(AVComponent.Events.FULLSCREEN, function (state) {
+                _this.fire(AVComponent.Events.FULLSCREEN, state);
             }, false);
         };
         AVComponent.prototype.getCurrentRange = function () {
