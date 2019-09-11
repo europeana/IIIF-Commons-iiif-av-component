@@ -913,7 +913,7 @@ var IIIFComponents;
             });
             $mediaElement.on('progress', function () {
                 console.log("Media Ready State = " + media.readyState);
-                if (media.readyState >= 2) {
+                if (media.readyState >= 1) {
                     var duration = media.duration;
                     var bufferedEnd = media.buffered.end(media.buffered.length - 1);
                     if (duration > 0) {
