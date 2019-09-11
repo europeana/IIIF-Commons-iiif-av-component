@@ -912,10 +912,12 @@ var IIIFComponents;
                 }
             });
             $mediaElement.on('progress', function () {
-                var duration = media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                if (media.readyState >= 2) {
+                    var duration = media.duration;
+                    var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                    if (duration > 0) {
+                        $(".loading-progress").width(((bufferedEnd / duration) * 100) + "%");
+                    }
                 }
             });
             $mediaElement.attr('preload', 'auto');

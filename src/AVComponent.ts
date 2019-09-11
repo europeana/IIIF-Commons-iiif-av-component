@@ -1199,11 +1199,13 @@ namespace IIIFComponents {
             });
 
             $mediaElement.on('progress', () => {
-                var duration =  media.duration;
-                var bufferedEnd = media.buffered.end(media.buffered.length - 1);
+                if (media.readyState >= 2) {
+                    var duration =  media.duration;
+                    var bufferedEnd = media.buffered.end(media.buffered.length - 1);
 
-                if (duration > 0) {
-                    $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
+                    if (duration > 0) {
+                        $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
+                    }
                 }
             });
 
