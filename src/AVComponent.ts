@@ -1199,7 +1199,8 @@ namespace IIIFComponents {
             });
 
             $mediaElement.on('progress', () => {
-                if (media.readyState >= 1) {
+                //if (media.readyState >= 1) {
+                if (media.buffered.length > 0) {
                     var duration =  media.duration;
                     var bufferedEnd = media.buffered.end(media.buffered.length - 1);
 
