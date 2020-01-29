@@ -271,7 +271,7 @@ namespace IIIFComponents {
                                     <i class="av-icon av-icon-previous" aria-hidden="true"></i>${this._data.content.previous}
                                 </button>`);
             this._$playButton = $(`
-                                <button class="btn" title="${this._data.content.play}">
+                                <button class="btn button-play" title="${this._data.content.play}">
                                     <i class="av-icon av-icon-play play" aria-hidden="true"></i>${this._data.content.play}
                                 </button>`);
             this._$nextButton = $(`
@@ -283,7 +283,7 @@ namespace IIIFComponents {
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
             this._$canvasLoadingProgress = $('<div class="loading-progress"></div>');
             this._$fullscreenButton = $(`
-                                <button class="btn" title="${this._data.content.fullscreen}">
+                                <button class="btn button-fullscreen" title="${this._data.content.fullscreen}">
                                     <i class="av-icon av-icon-fullscreen" aria-hidden="true"></i>${this._data.content.fullscreen}
                                 </button>`);
 

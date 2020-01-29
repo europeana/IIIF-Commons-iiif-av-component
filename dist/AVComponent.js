@@ -173,13 +173,13 @@ var IIIFComponents;
             this._$timelineItemContainer = $('<div class="timeline-item-container"></div>');
             this._$controlsContainer = $('<div class="controls-container"></div>');
             this._$prevButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.previous + "\">\n                                    <i class=\"av-icon av-icon-previous\" aria-hidden=\"true\"></i>" + this._data.content.previous + "\n                                </button>");
-            this._$playButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.play + "\">\n                                    <i class=\"av-icon av-icon-play play\" aria-hidden=\"true\"></i>" + this._data.content.play + "\n                                </button>");
+            this._$playButton = $("\n                                <button class=\"btn button-play\" title=\"" + this._data.content.play + "\">\n                                    <i class=\"av-icon av-icon-play play\" aria-hidden=\"true\"></i>" + this._data.content.play + "\n                                </button>");
             this._$nextButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.next + "\">\n                                    <i class=\"av-icon av-icon-next\" aria-hidden=\"true\"></i>" + this._data.content.next + "\n                                </button>");
             this._$timeDisplay = $('<div class="time-display"><span class="canvas-time"></span> / <span class="canvas-duration"></span></div>');
             this._$canvasTime = this._$timeDisplay.find('.canvas-time');
             this._$canvasDuration = this._$timeDisplay.find('.canvas-duration');
             this._$canvasLoadingProgress = $('<div class="loading-progress"></div>');
-            this._$fullscreenButton = $("\n                                <button class=\"btn\" title=\"" + this._data.content.fullscreen + "\">\n                                    <i class=\"av-icon av-icon-fullscreen\" aria-hidden=\"true\"></i>" + this._data.content.fullscreen + "\n                                </button>");
+            this._$fullscreenButton = $("\n                                <button class=\"btn button-fullscreen\" title=\"" + this._data.content.fullscreen + "\">\n                                    <i class=\"av-icon av-icon-fullscreen\" aria-hidden=\"true\"></i>" + this._data.content.fullscreen + "\n                                </button>");
             if (this.isVirtual()) {
                 this.$playerElement.addClass('virtual');
             }
