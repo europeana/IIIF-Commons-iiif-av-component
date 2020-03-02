@@ -860,17 +860,13 @@ var IIIFComponents;
             data.timeout = null;
             var that = this;
             data.checkForStall = function () {
-                this.logMessage('Check for Stall');
                 var self = this;
                 if (this.active) {
-                    this.logMessage('Active');
                     that._checkMediaSynchronization();
                     if (this.element.get(0).readyState > 0 && !this.outOfSync) {
-                        this.logMessage('media ready and NOT out of sync');
                         that._playbackStalled(false, self);
                     }
                     else {
-                        this.logMessage('media ready and out of sync');
                         that._playbackStalled(true, self);
                         if (this.timeout) {
                             window.clearTimeout(this.timeout);
