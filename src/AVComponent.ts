@@ -1131,7 +1131,7 @@ namespace IIIFComponents {
             data.element = $mediaElement;
 
             data.timeout = null;
-            data.canPlayThrough = false;
+            data.canPlay = false;
 
             const that = this;
 
@@ -1161,12 +1161,12 @@ namespace IIIFComponents {
 
             data.canPlayThrough = function () {
                 that.logMessage("Can play through received");
-                this.canPlayThrough = true;
+                this.canPlay = true;
             }
 
             data.waiting = function() {
                 that.logMessage("waiting received");
-                this.canPlayThrough = false;
+                this.canPlay = false;
             }
 
             this._contentAnnotations.push(data);

@@ -858,7 +858,7 @@ var IIIFComponents;
             }).hide();
             data.element = $mediaElement;
             data.timeout = null;
-            data.canPlayThrough = false;
+            data.canPlay = false;
             var that = this;
             data.checkForStall = function () {
                 var self = this;
@@ -883,11 +883,11 @@ var IIIFComponents;
             };
             data.canPlayThrough = function () {
                 that.logMessage("Can play through received");
-                this.canPlayThrough = true;
+                this.canPlay = true;
             };
             data.waiting = function () {
                 that.logMessage("waiting received");
-                this.canPlayThrough = false;
+                this.canPlay = false;
             };
             this._contentAnnotations.push(data);
             if (this.$playerElement) {
