@@ -1777,12 +1777,12 @@ namespace IIIFComponents {
                     if (Math.abs(factualTime - correctTime) > this._mediaSyncMarginSecs) {
 
                         contentAnnotation.outOfSync = true;
-                        //this.playbackStalled(true, contentAnnotation);
+                        this._playbackStalled(true, contentAnnotation);
 
                         const lag: number = Math.abs(factualTime - correctTime);
                         this.logMessage('DETECTED synchronization lag: ' + Math.abs(lag));
                         this._setMediaCurrentTime(contentAnnotation.element[0], correctTime);
-                        //this.synchronizeMedia();
+                        this._synchronizeMedia();
 
                     } else {
                         contentAnnotation.outOfSync = false;

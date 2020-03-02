@@ -1361,11 +1361,11 @@ var IIIFComponents;
                     // off by 0.2 seconds
                     if (Math.abs(factualTime - correctTime) > this._mediaSyncMarginSecs) {
                         contentAnnotation.outOfSync = true;
-                        //this.playbackStalled(true, contentAnnotation);
+                        this._playbackStalled(true, contentAnnotation);
                         var lag = Math.abs(factualTime - correctTime);
                         this.logMessage('DETECTED synchronization lag: ' + Math.abs(lag));
                         this._setMediaCurrentTime(contentAnnotation.element[0], correctTime);
-                        //this.synchronizeMedia();
+                        this._synchronizeMedia();
                     }
                     else {
                         contentAnnotation.outOfSync = false;
