@@ -873,7 +873,7 @@ var IIIFComponents;
                         }
                         this.timeout = window.setTimeout(function () {
                             self.checkForStall();
-                        }, 1000);
+                        }, 100);
                     }
                 }
                 else {
@@ -1369,7 +1369,7 @@ var IIIFComponents;
                     }
                     else {
                         contentAnnotation.outOfSync = false;
-                        //this.playbackStalled(false, contentAnnotation);
+                        this._playbackStalled(false, contentAnnotation);
                     }
                 }
             }
