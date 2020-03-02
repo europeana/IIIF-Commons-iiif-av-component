@@ -123,7 +123,7 @@ var IIIFComponents;
             //private _lastCanvasHeight: number | undefined;
             //private _lastCanvasWidth: number | undefined;
             _this._lowPriorityFrequency = 250;
-            _this._mediaSyncMarginSecs = 0.25;
+            _this._mediaSyncMarginSecs = 0.2;
             _this._rangeSpanPadding = 0.25;
             _this._readyMediaCount = 0;
             _this._stallRequestedBy = []; //todo: type
@@ -880,6 +880,11 @@ var IIIFComponents;
                     that._playbackStalled(false, self);
                 }
             };
+            data.canPlayThrough = function () {
+                if (this.active && this.outOfSync) {
+                    that._playbackStalled(false, self);
+                }
+            };
             this._contentAnnotations.push(data);
             if (this.$playerElement) {
                 this._$canvasContainer.append($mediaElement);
@@ -890,15 +895,16 @@ var IIIFComponents;
             });
             $mediaElement.on('waiting', function () {
                 //console.log('waiting');
-                data.checkForStall();
+                //data.checkForStall();
             });
             $mediaElement.on('seeking', function () {
                 //console.log('seeking');
                 //data.checkForStall();
             });
             $mediaElement.on('canplaythrough', function () {
-                //console.log('seeking');
-                data.checkForStall();
+                //console.log('canplaythrough');
+                //data.checkForStall();
+                data.canPlayThrough();
             });
             $mediaElement.on('loadedmetadata', function () {
                 _this._readyMediaCount++;

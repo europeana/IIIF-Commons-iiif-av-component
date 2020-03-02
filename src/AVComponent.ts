@@ -209,7 +209,7 @@ namespace IIIFComponents {
         //private _lastCanvasWidth: number | undefined;
         private _lowPriorityFrequency: number = 250;
         private _lowPriorityInterval: number;
-        private _mediaSyncMarginSecs: number = 0.25;
+        private _mediaSyncMarginSecs: number = 0.2;
         private _rangeSpanPadding: number = 0.25;
         private _readyMediaCount: number = 0;
         private _stallRequestedBy: any[] = []; //todo: type
@@ -1158,6 +1158,12 @@ namespace IIIFComponents {
 
             }
 
+            data.canPlayThrough = function () {
+                if (this.active && this.outOfSync) {
+                    that._playbackStalled(false, self);
+                }
+            }
+
             this._contentAnnotations.push(data);
 
             if (this.$playerElement) {
@@ -1171,7 +1177,7 @@ namespace IIIFComponents {
 
             $mediaElement.on('waiting', () => {
                 //console.log('waiting');
-                data.checkForStall();
+                //data.checkForStall();
             });
 
             $mediaElement.on('seeking', () => {
@@ -1180,8 +1186,9 @@ namespace IIIFComponents {
             });
 
             $mediaElement.on('canplaythrough', () => {
-                //console.log('seeking');
-                data.checkForStall();
+                //console.log('canplaythrough');
+                //data.checkForStall();
+                data.canPlayThrough();
             });
 
             $mediaElement.on('loadedmetadata', () => {
