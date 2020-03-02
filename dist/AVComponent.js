@@ -863,7 +863,7 @@ var IIIFComponents;
                 var self = this;
                 if (this.active) {
                     that._checkMediaSynchronization();
-                    if (this.element.get(0).readyState > 0 && !this.outOfSync) {
+                    if (this.element.get(0).readyState > 0 && !this.outOfSync && this.canPlayThrough) {
                         that._playbackStalled(false, self);
                     }
                     else {
@@ -881,9 +881,12 @@ var IIIFComponents;
                 }
             };
             data.canPlayThrough = function () {
-                if (this.active && this.outOfSync) {
-                    that._playbackStalled(false, self);
-                }
+                that.logMessage("Can play through received");
+                this.canPlayThrough = true;
+            };
+            data.waiting = function () {
+                that.logMessage("waiting received");
+                this.canPlayThrough = false;
             };
             this._contentAnnotations.push(data);
             if (this.$playerElement) {
@@ -2051,9 +2054,7 @@ var IIIFComponents;
             }
         };
         AVComponent.prototype._checkAllWaveformsReady = function () {
-            console.log('loading waveforms');
             if (this._readyWaveforms === this._getCanvasInstancesWithWaveforms().length) {
-                console.log('waveforms ready');
                 clearInterval(this._checkAllWaveformsReadyInterval);
                 this.fire(AVComponent.Events.WAVEFORMS_READY);
                 this.resize();
