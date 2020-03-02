@@ -883,11 +883,11 @@ var IIIFComponents;
             };
             data.canPlayThrough = function () {
                 that.logMessage("Can play through received");
-                data.canPlayThrough = true;
+                this.canPlayThrough = true;
             };
             data.waiting = function () {
                 that.logMessage("waiting received");
-                data.canPlayThrough = false;
+                this.canPlayThrough = false;
             };
             this._contentAnnotations.push(data);
             if (this.$playerElement) {
