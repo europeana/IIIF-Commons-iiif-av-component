@@ -1175,12 +1175,17 @@ namespace IIIFComponents {
 
             $mediaElement.on('waiting', () => {
                 //console.log('waiting');
-                //data.checkForStall();
+                data.checkForStall();
             });
 
             $mediaElement.on('seeking', () => {
                 //console.log('seeking');
                 //data.checkForStall();
+            });
+
+            $mediaElement.on('canplaythrough', () => {
+                //console.log('seeking');
+                data.checkForStall();
             });
 
             $mediaElement.on('loadedmetadata', () => {
@@ -1806,14 +1811,15 @@ namespace IIIFComponents {
                 }
 
                 if (!this._isStalled) {
-
+                    this.logMessage('Isstalled false');
                     if (this.$playerElement) {
                         //this._showWorkingIndicator(this._$canvasContainer);
                     }
-
+                    this.logMessage('isplay '+this._isPlaying);
                     this._wasPlaying = this._isPlaying;
                     this.pause(true);
                     this._isStalled = aBoolean;
+                    this.logMessage('isstalled now set to '+this._isStalled);
                 }
 
             } else {
@@ -1824,10 +1830,11 @@ namespace IIIFComponents {
                     this._stallRequestedBy.splice(idx, 1);
                 }
 
+                this.logMessage('Checking stalling length '+this._stallRequestedBy.length);
                 if (this._stallRequestedBy.length === 0) {
 
                     //this._hideWorkingIndicator();
-
+                    this.logMessage('was stalled '+this._isStalled+' was playing '+this._wasPlaying);
                     if (this._isStalled && this._wasPlaying) {
                         this.play(true);
                     }

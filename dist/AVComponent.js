@@ -894,11 +894,15 @@ var IIIFComponents;
             });
             $mediaElement.on('waiting', function () {
                 //console.log('waiting');
-                //data.checkForStall();
+                data.checkForStall();
             });
             $mediaElement.on('seeking', function () {
                 //console.log('seeking');
                 //data.checkForStall();
+            });
+            $mediaElement.on('canplaythrough', function () {
+                //console.log('seeking');
+                data.checkForStall();
             });
             $mediaElement.on('loadedmetadata', function () {
                 _this._readyMediaCount++;
@@ -1385,12 +1389,15 @@ var IIIFComponents;
                     this._stallRequestedBy.push(syncMediaRequestingStall);
                 }
                 if (!this._isStalled) {
+                    this.logMessage('Isstalled false');
                     if (this.$playerElement) {
                         //this._showWorkingIndicator(this._$canvasContainer);
                     }
+                    this.logMessage('isplay ' + this._isPlaying);
                     this._wasPlaying = this._isPlaying;
                     this.pause(true);
                     this._isStalled = aBoolean;
+                    this.logMessage('isstalled now set to ' + this._isStalled);
                 }
             }
             else {
@@ -1398,8 +1405,10 @@ var IIIFComponents;
                 if (idx >= 0) {
                     this._stallRequestedBy.splice(idx, 1);
                 }
+                this.logMessage('Checking stalling length ' + this._stallRequestedBy.length);
                 if (this._stallRequestedBy.length === 0) {
                     //this._hideWorkingIndicator();
+                    this.logMessage('was stalled ' + this._isStalled + ' was playing ' + this._wasPlaying);
                     if (this._isStalled && this._wasPlaying) {
                         this.play(true);
                     }
