@@ -209,7 +209,7 @@ namespace IIIFComponents {
         //private _lastCanvasWidth: number | undefined;
         private _lowPriorityFrequency: number = 250;
         private _lowPriorityInterval: number;
-        private _mediaSyncMarginSecs: number = 0.2;
+        private _mediaSyncMarginSecs: number = 0.25;
         private _rangeSpanPadding: number = 0.25;
         private _readyMediaCount: number = 0;
         private _stallRequestedBy: any[] = []; //todo: type
@@ -1786,7 +1786,7 @@ namespace IIIFComponents {
                         const lag: number = Math.abs(factualTime - correctTime);
                         this.logMessage('DETECTED synchronization lag: ' + Math.abs(lag));
                         this._setMediaCurrentTime(contentAnnotation.element[0], correctTime);
-                        this._synchronizeMedia();
+                        //this._synchronizeMedia();
 
                     } else {
                         this.logMessage('No synchronization lag');

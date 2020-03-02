@@ -123,7 +123,7 @@ var IIIFComponents;
             //private _lastCanvasHeight: number | undefined;
             //private _lastCanvasWidth: number | undefined;
             _this._lowPriorityFrequency = 250;
-            _this._mediaSyncMarginSecs = 0.2;
+            _this._mediaSyncMarginSecs = 0.25;
             _this._rangeSpanPadding = 0.25;
             _this._readyMediaCount = 0;
             _this._stallRequestedBy = []; //todo: type
@@ -1369,7 +1369,7 @@ var IIIFComponents;
                         var lag = Math.abs(factualTime - correctTime);
                         this.logMessage('DETECTED synchronization lag: ' + Math.abs(lag));
                         this._setMediaCurrentTime(contentAnnotation.element[0], correctTime);
-                        this._synchronizeMedia();
+                        //this._synchronizeMedia();
                     }
                     else {
                         this.logMessage('No synchronization lag');
