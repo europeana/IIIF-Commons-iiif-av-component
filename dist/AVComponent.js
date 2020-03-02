@@ -123,7 +123,7 @@ var IIIFComponents;
             //private _lastCanvasHeight: number | undefined;
             //private _lastCanvasWidth: number | undefined;
             _this._lowPriorityFrequency = 250;
-            _this._mediaSyncMarginSecs = 1;
+            _this._mediaSyncMarginSecs = 0.2;
             _this._rangeSpanPadding = 0.25;
             _this._readyMediaCount = 0;
             _this._stallRequestedBy = []; //todo: type
@@ -860,13 +860,17 @@ var IIIFComponents;
             data.timeout = null;
             var that = this;
             data.checkForStall = function () {
+                this.logMessage('Check for Stall');
                 var self = this;
                 if (this.active) {
+                    this.logMessage('Active');
                     that._checkMediaSynchronization();
                     if (this.element.get(0).readyState > 0 && !this.outOfSync) {
+                        this.logMessage('media ready and NOT out of sync');
                         that._playbackStalled(false, self);
                     }
                     else {
+                        this.logMessage('media ready and out of sync');
                         that._playbackStalled(true, self);
                         if (this.timeout) {
                             window.clearTimeout(this.timeout);
@@ -1368,6 +1372,7 @@ var IIIFComponents;
                         this._synchronizeMedia();
                     }
                     else {
+                        this.logMessage('No synchronization lag');
                         contentAnnotation.outOfSync = false;
                         this._playbackStalled(false, contentAnnotation);
                     }
