@@ -1378,7 +1378,7 @@ var IIIFComponents;
                         this._playbackStalled(true, contentAnnotation);
                         var lag = Math.abs(factualTime - correctTime);
                         this.logMessage('DETECTED synchronization lag: ' + Math.abs(lag));
-                        if (contentAnnotation.canPlayThrough) { //only set time when canplaythrough is set
+                        if (contentAnnotation.canPlay) { //only set time when canplaythrough is set
                             this._setMediaCurrentTime(contentAnnotation.element[0], correctTime);
                         }
                         //this._synchronizeMedia();
