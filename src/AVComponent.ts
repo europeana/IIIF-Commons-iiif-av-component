@@ -1150,7 +1150,7 @@ namespace IIIFComponents {
                         }
                         this.timeout = window.setTimeout(function () {
                             self.checkForStall();
-                        }, 100);
+                        }, 200);
                     }
 
                 } else {
@@ -1559,6 +1559,8 @@ namespace IIIFComponents {
         public play(withoutUpdate?: boolean): void {
 
             if (this._isPlaying) return;
+
+            //TODO: check if media is ready for playout
 
             let duration: Manifesto.Duration | undefined;
 

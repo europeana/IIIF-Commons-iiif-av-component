@@ -874,7 +874,7 @@ var IIIFComponents;
                         }
                         this.timeout = window.setTimeout(function () {
                             self.checkForStall();
-                        }, 100);
+                        }, 200);
                     }
                 }
                 else {
@@ -1203,6 +1203,7 @@ var IIIFComponents;
             var _this = this;
             if (this._isPlaying)
                 return;
+            //TODO: check if media is ready for playout
             var duration;
             if (this._data.range) {
                 duration = this._data.range.getDuration();
