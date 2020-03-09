@@ -1203,7 +1203,17 @@ var IIIFComponents;
             var _this = this;
             if (this._isPlaying)
                 return;
-            //TODO: check if media is ready for playout
+            //check if media is ready for playout
+            var contentAnnotation;
+            for (var i = 0; i < this._contentAnnotations.length; i++) {
+                contentAnnotation = this._contentAnnotations[i];
+                this._setMediaCurrentTime(contentAnnotation.element[0], this._canvasClockTime - contentAnnotation.start + contentAnnotation.startOffset);
+                if (contentAnnotation.start <= this._canvasClockTime && contentAnnotation.end >= this._canvasClockTime) {
+                    if (!contentAnnotation.canPlay) {
+                        return;
+                    }
+                }
+            }
             var duration;
             if (this._data.range) {
                 duration = this._data.range.getDuration();

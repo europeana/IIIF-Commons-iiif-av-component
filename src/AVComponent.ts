@@ -1560,7 +1560,20 @@ namespace IIIFComponents {
 
             if (this._isPlaying) return;
 
-            //TODO: check if media is ready for playout
+            //check if media is ready for playout
+            let contentAnnotation;
+
+            for (let i = 0; i < this._contentAnnotations.length; i++) {
+                contentAnnotation = this._contentAnnotations[i];
+
+                this._setMediaCurrentTime(contentAnnotation.element[0], this._canvasClockTime - contentAnnotation.start + contentAnnotation.startOffset);
+
+                if (contentAnnotation.start <= this._canvasClockTime && contentAnnotation.end >= this._canvasClockTime) {
+                    if (!contentAnnotation.canPlay) {
+                        return;
+                    }
+                }
+            }
 
             let duration: Manifesto.Duration | undefined;
 
