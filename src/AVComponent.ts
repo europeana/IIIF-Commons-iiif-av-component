@@ -1222,7 +1222,7 @@ namespace IIIFComponents {
                     var bufferedEnd = media.buffered.end(media.buffered.length - 1);
 
                     if (duration > 0) {
-                        $(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
+                        this._$element.find(".loading-progress").width(((bufferedEnd / duration)*100) + "%");
                     }
                 }
             });
