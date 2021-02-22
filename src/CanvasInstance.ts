@@ -535,8 +535,7 @@ export class CanvasInstance extends BaseComponent {
 
       if (format) {
         if (
-          AVComponentUtils.isMpegDashFormat(format) &&
-          !AVComponentUtils.isSafari()
+          AVComponentUtils.isMpegDashFormat(format)
         ) {
           return body;
         }
