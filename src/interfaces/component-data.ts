@@ -1,4 +1,4 @@
-import { Helper } from '@iiif/manifold';
+import { Helper } from '@europeana/iiif-manifold';
 import { IAVComponentContent } from './component-content';
 
 export interface IAVComponentData {
