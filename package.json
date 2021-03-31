@@ -1,5 +1,5 @@
 {
-  "name": "@iiif/iiif-av-component",
+  "name": "@europeana/iiif-av-component",
   "version": "1.1.0",
   "description": "",
   "main": "./dist-commonjs/index.js",
@@ -21,14 +21,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/iiif-commons/iiif-av-component.git"
+    "url": "https://github.com/europeana/iiif-av-component.git"
   },
   "author": "@edsilv",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/iiif-commons/iiif-av-component/issues"
+    "url": "https://github.com/europeana/iiif-av-component/issues"
   },
-  "homepage": "https://github.com/iiif-commons/iiif-av-component#readme",
+  "homepage": "https://github.com/europeana/iiif-av-component#readme",
   "devDependencies": {
     "@fesk/eslint-config-standard": "1.4.0-pr.b6dc2fa3",
     "@types/node": "^8.10.52",
